@@ -48,7 +48,7 @@ docker-compose up -d
 docker-compose exec backend python manage.py migrate
 ```
 
-Собрать и переместить в volume статику::
+Собрать и переместить в volume статику:
 
 ```
 docker-compose exec backend python manage.py collectstatic --no-input
@@ -70,3 +70,5 @@ docker-compose exec backend python manage.py createsuperuser
 ```4000 0025 0000 3155``` - тестовые данные номера карты, для которой необходима аутентификация
 
 ```4000 0000 0000 0002``` - этот платеж будет отклонен
+
+- Срок действия карты - любая дата в будущем. Код - любыек три цифры.
