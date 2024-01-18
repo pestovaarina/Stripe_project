@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title> Список товаров </title>
+</head>
+<body>
+    <h1>Список товаров</h1>
+    {% for item in items %}
+    {% include 'includes/item_card.html' %}
+    {% if not forloop.last %}<hr>{% endif %}
+    {% endfor %}
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create order</title>
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <section>
+        <div class="container py-5">
+          {% for item in items%}
+          <article>
+            <ul>
+              <li>
+                Название: {{ item.item.name }}
+              </li>
+              <li>
+                Количество: {{ item.amount }}
+              </li>
+              <li>
+                Цена: {{ item.item.get_price_show }}, {{ item.item.currency }}
+              </li>
+            </ul>
+              {% if not forloop.last %}<hr>{% endif %}
+              {% endfor %}
+          </article>
+        </div>
+        <button type="button" id="buy-button">Buy</button>
+        <script type="text/javascript">
+            var stripe = Stripe('{{ STRIPE_PUBLIC_KEY }}');
+    var buyButton = document.getElementById('buy-button');
+    buyButton.addEventListener('click', function () {
+        fetch('{% url "payment" order.id %}', {
+          method: 'GET',
+        })
+            .then(function (response) {
+              return response.json();
+            })
+            .then(function (session) {
+              return stripe.redirectToCheckout({sessionId: session.id});
+            })
+            .then(function (result) {
+              if (result.error) {
+                alert(result.error.message);
+              }
+            })
+            .catch(function (error) {
+              console.error('Error:', error);
+             })
+         });
+</script>
+</body>
+</html>

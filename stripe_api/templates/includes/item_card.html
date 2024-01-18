@@ -1,0 +1,11 @@
+<ul>
+    <li>
+      Название: {{ item.name }}
+    </li>
+    <li>
+      Цена: {{ item.price }}, {{ item.currency }}
+    </li>
+  </ul>
+
+  <p>{{ item.description }}</p>    
+  <a href="{% url 'item' item.id %}">подробная информация </a> <br>
